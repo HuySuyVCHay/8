@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Список книг{% endblock %}
+
+{% block content %}
+    <h1>Список книг</h1>
+    <p class="muted">Всего книг: {{ books|length }}</p>
+
+    {% for book in books %}
+        <div class="book">
+            <h3>{{ forloop.counter }}. <a href="{% url 'library:book_detail' book.pk %}">{{ book.title|upper }}</a></h3>
+            <div>{{ book.author|title }} · {{ book.year }} г. · {{ book.pages }} стр.</div>
+            <div class="muted">{{ book.description|default:"Описания пока нет"|truncatewords:12 }}</div>
+            <small class="muted">Добавлена: {{ book.created_at|date:"d.m.Y H:i" }}</small>
+        </div>
+    {% empty %}
+        <p>В библиотеке пока нет ни одной книги.</p>
+    {% endfor %}
+
+    <p><a class="btn" href="{% url 'library:book_create' %}">+ Добавить книгу</a></p>
+{% endblock %}

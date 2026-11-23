@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ book.title }}</h1>
+    <p><b>Автор:</b> {{ book.author }}</p>
+    <p><b>Год издания:</b> {{ book.year }}</p>
+    <p><b>Страниц:</b> {{ book.pages }}</p>
+    <p><b>Описание:</b><br>{{ book.description|default:"Описания пока нет"|linebreaksbr }}</p>
+    <p class="muted">Добавлена: {{ book.created_at|date:"d E Y, H:i" }}</p>
+
+    <p>
+        <a class="btn" href="{% url 'library:book_edit' book.pk %}">Изменить</a>
+        <a class="btn gray" href="{% url 'library:book_list' %}">Все книги</a>
+    </p>
+{% endblock %}
